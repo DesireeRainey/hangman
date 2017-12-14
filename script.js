@@ -1,11 +1,15 @@
 // create an array of Words
-const word = ['Superhero', 'Hulk', 'Thor', 'Captain_America' ]
+const word = ['loki', 'hulk', 'thor', 'ant-man', 'spider-man' ]
 //choose word randomly
 var randNum = Math.floor(Math.random() * word.length);
-
-
+var rightWord = [];
+var wrongWord = [];
 var choosenWord = word[randNum];
 var underScore = [];
+var docUnderScore = document.getElementsByClassName('underscore');
+var docRightGuess= document.getElementsByClassName('rightGuess');
+var docWrongGuess = document.getElementsByClassName('wrongGuess')
+
 console.log(choosenWord);
 //create underscores based on the length of the array
 	var generateUnderscore = function(){
@@ -15,14 +19,30 @@ console.log(choosenWord);
 		return underScore;
 	}
 
-
-console.log(generateUnderscore());
-
-
+console.log(choosenWord);
 // Get users guess from pressing the key
+//if users guess is right
 document.addEventListener('keypress', function(){
-	console.log(event.keyCode);
+	var keyword = String.fromCharCode(event.keyCode);
+	
+	if(choosenWord.indexOf(keyword) > -1){
+		rightWord.push(keyword);
+//replaces underscore 
+		underScore[choosenWord.indexOf(keyword)] = keyword;
+		docUnderScore[0].innerHTML = underScore.join(' ');
+		docRightGuess[0].innerHTML = rightWord;
+
+		if(underScore.join('') == choosenWord){
+			alert('You Win');
+		}
+	}else {
+		wrongWord.push(keyword);
+		docWrongGuess[0].innerHTML = wrongWord
+		console.log(wrongWord);
+	}
 });
+
+docUnderScore[0].innerHTML = generateUnderscore().join(' ');
 
 //check each letter guess to see if it is right
 
