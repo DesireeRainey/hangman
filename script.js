@@ -14,7 +14,7 @@ var MAX_WRONG_ALLOWED = 5;
 
 
 console.log(choosenWord);
-create underscores based on the length of the array
+//create underscores based on the length of the array
 	var generateUnderscore = function(){
 		for(var i = 0; i < choosenWord.length; i++){
 			underScore.push('_');
@@ -24,28 +24,29 @@ create underscores based on the length of the array
 
 console.log(choosenWord);
 
-// for(var i = 0; i < choosenWord.length; i++){}
 
 // Get users guess from pressing the key
 //if users guess is right
-// document.addEventListener('keypress', guess);
 
 	var guess = function(){
 	var keyword = String.fromCharCode(event.keyCode);
 //takes generated words index from event starting fom 0 
-	// for(var i = 0; i < choosenWord.length; i++){
-while(underScore.length > choosenWord.length){
-//pushes rightWord to array on screen
-	if(choosenWord.indexOf(keyword) > -1){
+	
+	for(var i = 0; i < choosenWord.length; i++){
+		// if(i > choosenWord.length) break;
+		if(choosenWord.indexOf(keyword) > i){
+
 		rightWord.push(keyword);
 // replaces underscore with right letter
 		underScore[choosenWord.indexOf(keyword)] = keyword;
+
+
 		docUnderScore[0].innerHTML = underScore.join(' ');
 //pushes letter to right word array		
 		docRightGuess[0].innerHTML = rightWord;
 	}
 //need for loop that runs through then whole index and doesnt stop
-		else if(underScore.join('') == choosenWord){
+		if(underScore.join('') == choosenWord){
 			swal("You Win!");
 			
 	}else {
@@ -63,8 +64,7 @@ while(underScore.length > choosenWord.length){
 };
 
 document.addEventListener('keypress', guess);
-// document.removeEventListener
-// docUnderScore[0].innerHTML = generateUnderscore().join(' ');
+docUnderScore[0].innerHTML = generateUnderscore().join(' ');
 
 
 function reloadGame() {
