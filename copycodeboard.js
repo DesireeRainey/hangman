@@ -4,7 +4,7 @@ const word = ['loki', 'hulk', 'thor', 'cable', 'spider-man', 'magneto', 'mystiqu
 var randNum = Math.floor(Math.random() * word.length);
 var rightWord = [];
 var wrongWord = [];
-var choosenWord = word[randNum];
+// var choosenWord = word[randNum];
 var underScore = [];
 var docUnderScore = document.getElementsByClassName('underscore');
 var docRightGuess= document.getElementsByClassName('rightGuess');
@@ -12,20 +12,43 @@ var docWrongGuess = document.getElementsByClassName('wrongGuess');
 var wrongCount = 0;
 var MAX_WRONG_ALLOWED = 5;
 
+// function chooseWord(){
+// 	randNum = Math.floor(Math.random() * word.length);
+// 	choosenWord = word[randNum];
+// }
 
-console.log(choosenWord);
+//take a randomly choosen word and generates an underscore for each letter
+
 //create underscores based on the length of the array
 	var generateUnderscore = function(){
-		console.log("guess")
+		var choosenWord = word[Math.floor(Math.random() * word.length)];
 		for(var i = 0; i < choosenWord.length; i++){
 			underScore.push('_');
+			console.log(choosenWord);
 		}
 		return underScore;
 	}
 
-console.log(choosenWord);
+docUnderScore[0].innerHTML = generateUnderscore().join(' ');
 
-// Get users guess from pressing the key
+// // // Get users guess from pressing the key
+
+// document.addEventListener('keypress', guess);
+
+		document.addEventListener('keypress', (event) => {
+				var keyword = event.key
+				console.log("Letter " + event.key + " was pressed");
+				
+				if(choosenWord.indexOf(keyword) > -1){
+				
+				underScore[choosenWord.indexOf(keyword)] = keyword;
+				docUnderScore[0].innerHTML = underScore.join(' ');
+				if(underScore.join('') == choosenWord){
+				swal("You Win!");
+				}
+			}
+		})};
+		return underScore;
 
 
 	function guess(){
@@ -39,7 +62,7 @@ console.log(choosenWord);
 			//pushes letter to right word array		
 			docRightGuess[0].innerHTML = rightWord;
 		if(underScore.join('') == choosenWord){
-			// swal("You Win!");
+			swal("You Win!");
 			win();
 			//seperate into a win function that removes the event listener
 			//will call win function here 
@@ -48,7 +71,7 @@ console.log(choosenWord);
 		wrongWord.push(keyword);
 		wrongCount++
 		if(wrongCount > MAX_WRONG_ALLOWED){
-			swal("You lose!");
+			swal("You lose!")
 			//lose function that asks if you would like to play again.
 		}
 //pushes letter to wrong word array		
@@ -56,22 +79,25 @@ console.log(choosenWord);
 		console.log(wrongWord);
 		}
 	};
+// // document.addEventListener('keypress', guess);
 
-function win(){
-	swal("You Win!");
-	document.removeEventListener('keypress', guess);
-}
+// // function win(){
+// // 	document.removeEventListener('keypress', guess);
 
-//add event listeners .onload function
-document.addEventListener('keypress', guess);
+// // }
 
-function startGame(){
-	docUnderScore[0].innerHTML = generateUnderscore().join(' ');
-}
+// // //add event listeners .onload function
 
-startGame();
+// // function startGame(){
+// // 	underScore.length = 0;
+// // 	docUnderScore[0].innerHTML = generateUnderscore().join(' ');
+// // 	document.addEventListener('keypress', guess);
+// // 	console.log("Hello");
+// // }	
 
-document.getElementById('playAgain').addEventListener('click', startGame);
+// // startGame();
+
+// // document.getElementById('playAgain').addEventListener('click', startGame);
 
 
 
