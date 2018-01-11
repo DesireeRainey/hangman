@@ -1,4 +1,3 @@
-// create an array of Words
 const word = ['loki', 'hulk', 'thor', 'cable', 'spider-man', 'magneto', 'mystique', 'rogue' ]
 //choose word randomly
 var randNum = Math.floor(Math.random() * word.length);
@@ -12,7 +11,6 @@ var docWrongGuess = document.getElementsByClassName('wrongGuess');
 var wrongCount = 0;
 var MAX_WRONG_ALLOWED = 5;
 
-
 console.log(choosenWord);
 //create underscores based on the length of the array
 	var generateUnderscore = function(){
@@ -21,6 +19,13 @@ console.log(choosenWord);
 		}
 		return underScore;
 	}
+
+function renderUnderscore(){
+	document.addEventListener('keypress', guess);
+	underScore.length = 0;
+	let docUnderScore = document.getElementsByClassName('underscore');
+	docUnderScore[0].innerHTML = generateUnderscore().join(' ');
+};
 
 console.log(choosenWord);
 
@@ -40,6 +45,7 @@ console.log(choosenWord);
 			docRightGuess[0].innerHTML = rightWord;
 		if(underScore.join('') == choosenWord){
 			swal("You Win!");
+
 		}	
 	}else {
 		wrongWord.push(keyword);
@@ -53,10 +59,14 @@ console.log(choosenWord);
 		}
 	};
 
-document.addEventListener('keypress', guess);
-docUnderScore[0].innerHTML = generateUnderscore().join(' ');
-
-
-function reloadGame() {
-  location.reload()
+function win(){
+	document.removeEventListener('keypress', guess);
 }
+
+renderUnderscore();
+// document.addEventListener('keypress', guess);
+// docUnderScore[0].innerHTML = generateUnderscore().join(' ');
+
+document.getElementById('playAgain').addEventListener('click', renderUnderscore, choosenWord);
+
+
